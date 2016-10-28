@@ -1,4 +1,3 @@
-# course_enrollment
 # A student course enrollment program
 <h1>功能介绍</h1>
 <ul>
