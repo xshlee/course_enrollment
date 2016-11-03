@@ -1,18 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>student course enrollment</title>
-    <script src="lib/jquery.min.js" charset="utf-8"></script>
-    <!--[if ltIE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>student course enrollment</title>
+        <script src="lib/jquery.min.js" charset="utf-8"></script>
+        <script src="lib/vue.min.js" charset="utf-8"></script>
+    </head>
 
-<body>
-    <p>Hello World</p>
-</body>
-<script src="app.js" charset="utf-8"></script>
+    <body>
+
+        <div id="course_view">
+            <input v-model="add_course" v-on:keyup.enter="add" placeholder="Add a Course">
+            <button type="button" name="button" @click="add">add</button><br>
+            <input v-model="s"  placeholder="Search Course">
+            <ul>
+                <li v-for="(c, index) in filter_course(courses)">
+                    <span>{{ c.id }}</span>
+                    -
+                    <span>{{ c.name }}</span>
+                    -
+                    <button type="butotn" @click="on_delete(index)">x</button>
+                    or
+                    <button type="butotn" @click="edit(index)">edit</button>
+                </li>
+            </ul>
+            <div v-if="show_edit">
+                <input v-model="edit_course" v-on:keyup.enter="edited" placeholder="Edit a Course">
+                <button type="button" name="button" @click="edited">edit</button>
+            </div>
+
+        <hr>
+
+        <div>
+            <ul>
+                <li v-for="(s, index) in students">
+                    <span>{{ s.id }}</span>
+                    -
+                    <span>{{ s.name }}</span>
+                    - Course : [ {{ s.course.join(', ') }} ]-<button type="button" @click="edit_student(index)">edit</button>
+                </li>
+            </ul>
+            <div v-if="show_edit_student">
+                <select name="" v-model="selected" multiple="true">
+                    <option v-for="(c, index) in courses" :value="c.id">{{c.name}}</option>
+                </select>
+                <button type="button" name="button" @click="enrollment">enrollment</button>
+            </div>
+        </div>
+</div>
+    </body>
+    <script src="app.js" charset="utf-8"></script>
 </html>

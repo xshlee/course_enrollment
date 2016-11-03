@@ -13,6 +13,6 @@
 </ul>
 <h1>运行</h1>
 <ul>
-<li>在项目根目录下运行 node server</li>
-<li>打开浏览器 输入 http://localhost:8080</li>
+<li>在项目根目录下点击运行 start.bat </li>
+<li>打开浏览器中 输入 http://localhost:8080</li>
 </ul>

@@ -119,12 +119,18 @@ app.get('/studnets', function(req, res) {
 
 app.get('/student/enroll_course', function(req, res) {
     var _id = req.param('id');
-    var _courses = req.param('courses');
-    var _i = Course_List.findIndex(function(course) {
-        return course.id == _id;
+    var _courses = req.param('courses').join(',');
+    var _i = Student_List.findIndex(function(s) {
+        return s.id == _id;
     });
     if (_i > -1) {
-        Student_List[_i].course = _courses;
+		var c_list = [];
+		for (var i = 0, l = Course_List.length; i < l; i++) {
+			if(_courses.indexOf(Course_List[i].id) > -1){
+				c_list.push(Course_List[i].name);
+			}
+		}
+        Student_List[_i].course = c_list;
         res.statusCode = 200;
         res.send('success')
     } else {
